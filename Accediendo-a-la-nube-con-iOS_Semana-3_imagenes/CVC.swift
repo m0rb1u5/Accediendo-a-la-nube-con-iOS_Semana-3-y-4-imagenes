@@ -10,7 +10,18 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
+struct Seccion {
+    var nombre: String
+    var imagenes: [UIImage]
+    
+    init(nombre: String, imagenes: [UIImage]) {
+        self.nombre = nombre
+        self.imagenes = imagenes
+    }
+}
+
 class CVC: UICollectionViewController {
+    var imagenes = [Seccion]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +39,8 @@ class CVC: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func buscar(_ sender: UITextField) {
-        print(sender.text)
+        let seccion = Seccion(nombre: sender.text!, imagenes: self.busquedaGoogle(termino: sender.text!))
+        imagenes.append(seccion)
     }
     func busquedaGoogle(termino: String) -> [UIImage] {
         var imgs = [UIImage]()
@@ -52,7 +64,6 @@ class CVC: UICollectionViewController {
         }
         catch _ {
         }
-        
         return imgs
     }
 
