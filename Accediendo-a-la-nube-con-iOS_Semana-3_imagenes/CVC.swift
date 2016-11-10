@@ -41,6 +41,7 @@ class CVC: UICollectionViewController {
     @IBAction func buscar(_ sender: UITextField) {
         let seccion = Seccion(nombre: sender.text!, imagenes: self.busquedaGoogle(termino: sender.text!))
         imagenes.append(seccion)
+        self.collectionView!.reloadData()
     }
     func busquedaGoogle(termino: String) -> [UIImage] {
         var imgs = [UIImage]()
@@ -88,8 +89,9 @@ class CVC: UICollectionViewController {
         return imagenes[section].imagenes.count
     }
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ImgCelda
     
+        cell.imagen.image = imagenes[indexPath.section].imagenes[indexPath.item]
         // Configure the cell
     
         return cell
