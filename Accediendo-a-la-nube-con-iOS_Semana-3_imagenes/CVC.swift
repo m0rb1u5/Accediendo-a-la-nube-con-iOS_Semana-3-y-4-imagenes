@@ -30,7 +30,31 @@ class CVC: UICollectionViewController {
     @IBAction func buscar(_ sender: UITextField) {
         print(sender.text)
     }
-
+    func busquedaGoogle(termino: String) -> [UIImage] {
+        var imgs = [UIImage]()
+        let urls = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBcSosES15xfmaDPpJiOi8-h_g0gn-NonI&cx=008164932087334712365:5vn_jst974o&searchType=image&q=" + termino
+        let url: NSURL? = NSURL(string: urls)
+        let datos: NSData? = NSData(contentsOf: url! as URL)
+        do {
+            let json = try JSONSerialization.jsonObject(with: datos! as Data, options: JSONSerialization.ReadingOptions.mutableLeaves)
+            let dico1 = json as! NSDictionary
+            let dico2 = dico1["items"] as! NSArray
+            for elemento in dico2 {
+                let dico3 = elemento as! NSDictionary
+                let dico4 = dico3["image"] as! NSDictionary
+                let img_urls = dico4["thumbnailLink"] as! NSString as String
+                let img_url: NSURL? = NSURL(string: img_urls)
+                let img_datos: NSData? = NSData(contentsOf: img_url! as URL)
+                if let imagen = UIImage(data: img_datos! as Data) {
+                    imgs.append(imagen)
+                }
+            }
+        }
+        catch _ {
+        }
+        
+        return imgs
+    }
 
     /*
     // MARK: - Navigation
