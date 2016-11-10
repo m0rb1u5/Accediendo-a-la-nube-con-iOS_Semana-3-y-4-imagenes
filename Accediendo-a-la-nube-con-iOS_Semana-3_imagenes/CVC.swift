@@ -42,7 +42,9 @@ class CVC: UICollectionViewController {
         let seccion = Seccion(nombre: sender.text!, imagenes: self.busquedaGoogle(termino: sender.text!))
         imagenes.append(seccion)
         self.collectionView!.reloadData()
-    }
+        sender.text = nil
+        sender.resignFirstResponder()
+    }   
     func busquedaGoogle(termino: String) -> [UIImage] {
         var imgs = [UIImage]()
         let urls = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBcSosES15xfmaDPpJiOi8-h_g0gn-NonI&cx=008164932087334712365:5vn_jst974o&searchType=image&q=" + termino
@@ -58,8 +60,10 @@ class CVC: UICollectionViewController {
                 let img_urls = dico4["thumbnailLink"] as! NSString as String
                 let img_url: NSURL? = NSURL(string: img_urls)
                 let img_datos: NSData? = NSData(contentsOf: img_url! as URL)
-                if let imagen = UIImage(data: img_datos! as Data) {
-                    imgs.append(imagen)
+                if (img_datos != nil) {
+                    if let imagen = UIImage(data: img_datos! as Data) {
+                        imgs.append(imagen)
+                    }
                 }
             }
         }
@@ -91,12 +95,16 @@ class CVC: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! ImgCelda
     
-        cell.imagen.image = imagenes[indexPath.section].imagenes[indexPath.item]
         // Configure the cell
-    
+        cell.imagen.image = imagenes[indexPath.section].imagenes[indexPath.item]
         return cell
     }
-
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "Cell2", for: indexPath) as! EncabezadoV
+        cell.etiqueta.text = imagenes[indexPath.section].nombre
+        return cell
+    }
+    
     // MARK: UICollectionViewDelegate
 
     /*
