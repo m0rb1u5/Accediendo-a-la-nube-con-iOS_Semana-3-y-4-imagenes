@@ -13,6 +13,7 @@
 		943C9EC41DD496CE000591F9 /* Accediendo_a_la_nube_con_iOS_Semana_3_imagenes.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 943C9EC21DD496CE000591F9 /* Accediendo_a_la_nube_con_iOS_Semana_3_imagenes.xcdatamodeld */; };
 		943C9EC61DD496CE000591F9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 943C9EC51DD496CE000591F9 /* Assets.xcassets */; };
 		943C9EC91DD496CE000591F9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 943C9EC71DD496CE000591F9 /* LaunchScreen.storyboard */; };
+		943C9ED11DD498A5000591F9 /* CVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 943C9ED01DD498A5000591F9 /* CVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		943C9EC51DD496CE000591F9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		943C9EC81DD496CE000591F9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		943C9ECA1DD496CE000591F9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		943C9ED01DD498A5000591F9 /* CVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 			children = (
 				943C9EBB1DD496CD000591F9 /* AppDelegate.swift */,
 				943C9EBD1DD496CD000591F9 /* ViewController.swift */,
+				943C9ED01DD498A5000591F9 /* CVC.swift */,
 				943C9EBF1DD496CD000591F9 /* Main.storyboard */,
 				943C9EC51DD496CE000591F9 /* Assets.xcassets */,
 				943C9EC71DD496CE000591F9 /* LaunchScreen.storyboard */,
@@ -140,6 +143,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				943C9ED11DD498A5000591F9 /* CVC.swift in Sources */,
 				943C9EBE1DD496CD000591F9 /* ViewController.swift in Sources */,
 				943C9EC41DD496CE000591F9 /* Accediendo_a_la_nube_con_iOS_Semana_3_imagenes.xcdatamodeld in Sources */,
 				943C9EBC1DD496CD000591F9 /* AppDelegate.swift in Sources */,
