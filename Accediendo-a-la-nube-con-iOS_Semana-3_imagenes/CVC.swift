@@ -53,12 +53,32 @@ class CVC: UICollectionViewController {
         catch _ {
         }
         
-        let seccion = Seccion2	(nombre: sender.text!, imagenes: self.busquedaGoogle(termino: sender.text!))
+        let seccion = Seccion2(nombre: sender.text!, imagenes: self.busquedaGoogle(termino: sender.text!))
+        let nuevaSeccionEntidad = NSEntityDescription.insertNewObject(forEntityName: "Seccion", into: self.contexto!)
+        nuevaSeccionEntidad.setValue(sender.text!, forKey: "nombre")
+        nuevaSeccionEntidad.setValue(self.creaImagenesEntidad(imagenes: seccion.imagenes), forKey: "tiene")
+        do {
+            try self.contexto!.save()
+        }
+        catch _ {
+        }
+        
         imagenes.append(seccion)
         self.collectionView!.reloadData()
         sender.text = nil
         sender.resignFirstResponder()
-    }   
+    }
+    func creaImagenesEntidad(imagenes: [UIImage]) -> Set<NSObject> {
+        var entidades = Set<NSObject>()
+        
+        for imagen in imagenes {
+            let imagenEntidad = NSEntityDescription.insertNewObject(forEntityName: "Imagen", into: self.contexto!)
+            imagenEntidad.setValue(UIImagePNGRepresentation(imagen), forKey: "contenido")
+            entidades.insert(imagenEntidad)
+        }
+        
+        return entidades
+    }
     func busquedaGoogle(termino: String) -> [UIImage] {
         var imgs = [UIImage]()
         let urls = "https://www.googleapis.com/customsearch/v1?key=AIzaSyBcSosES15xfmaDPpJiOi8-h_g0gn-NonI&cx=008164932087334712365:5vn_jst974o&searchType=image&q=" + termino
