@@ -8,8 +8,10 @@
         <attribute name="nombre" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="tiene" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Imagen" inverseName="pertenece" inverseEntity="Imagen" syncable="YES"/>
     </entity>
+    <fetchRequest name="petSeccion" entity="Seccion" predicateString="nombre == $nombre"/>
+    <fetchRequest name="petSecciones" entity="Seccion"/>
     <elements>
-        <element name="Seccion" positionX="-2034" positionY="-1998" width="128" height="73"/>
         <element name="Imagen" positionX="-1847" positionY="-1998" width="128" height="73"/>
+        <element name="Seccion" positionX="-2034" positionY="-1998" width="128" height="75"/>
     </elements>
 </model>

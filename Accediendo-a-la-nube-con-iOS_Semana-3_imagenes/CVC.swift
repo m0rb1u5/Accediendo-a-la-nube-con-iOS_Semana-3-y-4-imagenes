@@ -7,10 +7,11 @@
 //
 
 import UIKit
+import CoreData
 
 private let reuseIdentifier = "Cell"
 
-struct Seccion {
+struct Seccion2 {
     var nombre: String
     var imagenes: [UIImage]
     
@@ -21,10 +22,12 @@ struct Seccion {
 }
 
 class CVC: UICollectionViewController {
-    var imagenes = [Seccion]()
+    var imagenes = [Seccion2]()
+    var contexto: NSManagedObjectContext? = nil
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.contexto = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -39,7 +42,18 @@ class CVC: UICollectionViewController {
         // Dispose of any resources that can be recreated.
     }
     @IBAction func buscar(_ sender: UITextField) {
-        let seccion = Seccion(nombre: sender.text!, imagenes: self.busquedaGoogle(termino: sender.text!))
+        let seccionEntidad = NSEntityDescription.entity(forEntityName: "Seccion", in: self.contexto!)
+        let peticion = seccionEntidad?.managedObjectModel.fetchRequestFromTemplate(withName: "petSeccion", substitutionVariables: ["nombre": sender.text!])
+        do {
+            let seccionEntidad2 = try self.contexto?.fetch(peticion!) as! [NSEntityDescription]
+            if (seccionEntidad2.count > 0) {
+                return
+            }
+        }
+        catch _ {
+        }
+        
+        let seccion = Seccion2	(nombre: sender.text!, imagenes: self.busquedaGoogle(termino: sender.text!))
         imagenes.append(seccion)
         self.collectionView!.reloadData()
         sender.text = nil
