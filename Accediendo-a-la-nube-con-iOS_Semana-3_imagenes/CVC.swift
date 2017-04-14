@@ -29,6 +29,24 @@ class CVC: UICollectionViewController {
         super.viewDidLoad()
         self.contexto = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
 
+        let seccionEntidad = NSEntityDescription.entity(forEntityName: "Seccion", in: self.contexto!)
+        let peticion = seccionEntidad?.managedObjectModel.fetchRequestTemplate(forName: "petSecciones")
+        do {
+            let seccionesEntidad = try self.contexto?.fetch(peticion!) as! [NSObject]
+            for seccionEntidad2 in seccionesEntidad {
+                let nombre = seccionEntidad2.value(forKey: "nombre") as! String
+                let imagenesEntidad = seccionEntidad2.value(forKey: "tiene") as! Set<NSObject>
+                var imagenes2 = [UIImage]()
+                for imagenEntidad2 in imagenesEntidad {
+                    let img = UIImage(data: imagenEntidad2.value(forKey: "contenido") as! Data)
+                    imagenes2.append(img!)
+                }
+                self.imagenes.append(Seccion2(nombre: nombre, imagenes: imagenes2))
+            }
+        }
+        catch _ {
+        }
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
@@ -45,7 +63,7 @@ class CVC: UICollectionViewController {
         let seccionEntidad = NSEntityDescription.entity(forEntityName: "Seccion", in: self.contexto!)
         let peticion = seccionEntidad?.managedObjectModel.fetchRequestFromTemplate(withName: "petSeccion", substitutionVariables: ["nombre": sender.text!])
         do {
-            let seccionEntidad2 = try self.contexto?.fetch(peticion!) as! [NSEntityDescription]
+            let seccionEntidad2 = try self.contexto?.fetch(peticion!) as! [NSObject]
             if (seccionEntidad2.count > 0) {
                 return
             }
