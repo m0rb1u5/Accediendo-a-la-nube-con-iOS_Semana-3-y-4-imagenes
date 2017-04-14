@@ -65,6 +65,7 @@ class CVC: UICollectionViewController {
         do {
             let seccionEntidad2 = try self.contexto?.fetch(peticion!) as! [NSObject]
             if (seccionEntidad2.count > 0) {
+                sender.text = nil
                 return
             }
         }
