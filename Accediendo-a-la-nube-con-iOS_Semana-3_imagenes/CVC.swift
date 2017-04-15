@@ -32,10 +32,10 @@ class CVC: UICollectionViewController {
         let seccionEntidad = NSEntityDescription.entity(forEntityName: "Seccion", in: self.contexto!)
         let peticion = seccionEntidad?.managedObjectModel.fetchRequestTemplate(forName: "petSecciones")
         do {
-            let seccionesEntidad = try self.contexto?.fetch(peticion!) as! [NSObject]
-            for seccionEntidad2 in seccionesEntidad {
-                let nombre = seccionEntidad2.value(forKey: "nombre") as! String
-                let imagenesEntidad = seccionEntidad2.value(forKey: "tiene") as! Set<NSObject>
+            let seccionesEntidad: [Any]? = try self.contexto?.fetch(peticion!)
+            for seccionEntidad2 in seccionesEntidad! {
+                let nombre = (seccionEntidad2 as AnyObject).value(forKey: "nombre") as! String
+                let imagenesEntidad = (seccionEntidad2 as AnyObject).value(forKey: "tiene") as! Set<NSObject>
                 var imagenes2 = [UIImage]()
                 for imagenEntidad2 in imagenesEntidad {
                     let img = UIImage(data: imagenEntidad2.value(forKey: "contenido") as! Data)
@@ -63,8 +63,8 @@ class CVC: UICollectionViewController {
         let seccionEntidad = NSEntityDescription.entity(forEntityName: "Seccion", in: self.contexto!)
         let peticion = seccionEntidad?.managedObjectModel.fetchRequestFromTemplate(withName: "petSeccion", substitutionVariables: ["nombre": sender.text!])
         do {
-            let seccionEntidad2 = try self.contexto?.fetch(peticion!) as! [NSObject]
-            if (seccionEntidad2.count > 0) {
+            let seccionEntidad2: [Any]? = try self.contexto?.fetch(peticion!)
+            if ((seccionEntidad2?.count)! > 0) {
                 sender.text = nil
                 return
             }
